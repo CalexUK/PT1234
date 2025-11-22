@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calex UK Ltd Power BI Service Menu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom animation for fadeIn */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 font-sans text-slate-800 p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-2 tracking-tight">
+                <span class="text-yellow-500">Calex UK Ltd Power BI</span> Service Menu
+            </h1>
+            <p class="text-slate-500 text-lg">Ford pricing for end-to-end analytics solutions.</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="flex justify-center mb-8 space-x-2 md:space-x-4">
+            <button id="tab-packages" class="px-6 py-3 rounded-full font-semibold transition-all duration-200 text-sm md:text-base">
+                Packages
+            </button>
+            <button id="tab-phases" class="px-6 py-3 rounded-full font-semibold transition-all duration-200 text-sm md:text-base">
+                Phases & Lifecycle
+            </button>
+            <button id="tab-hourly" class="px-6 py-3 rounded-full font-semibold transition-all duration-200 text-sm md:text-base">
+                Hourly Rates
+            </button>
+        </div>
+
+        <!-- Content Area -->
+        <main id="content-area" class="animate-fadeIn">
+            <!-- Content will be dynamically loaded here by JavaScript -->
+        </main>
+
+        <footer class="mt-12 text-center border-t border-slate-200 pt-8">
+            <p class="text-slate-400 text-sm">© <span id="current-year"></span> Calex UK Ltd • Prices subject to complexity assessment.</p>
+        </footer>
+    </div>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        let activeTab = 'packages';
+
+        // Data for Project Packages
+        const packages = [
+            {
+                title: "Starter Dashboard",
+                price: "£1,500 - £2,500",
+                timeline: "3-5 Days",
+                idealFor: "POCs, Simple tracking, Single Data Source",
+                features: [
+                    "Up to 3 Report Pages",
+                    "Single Data Source (Excel/SharePoint)",
+                    "Standard DAX Measures",
+                    "Basic Data Cleaning",
+                    "Standard Visuals Only",
+                    "1 Round of Revisions"
+                ],
+                color: "border-blue-400"
+            },
+            {
+                title: "Professional Business Intelligence",
+                price: "£3,500 - £6,000",
+                timeline: "2-3 Weeks",
+                idealFor: "Departmental Reporting, KPIs, Drill-throughs",
+                features: [
+                    "Up to 8 Report Pages",
+                    "Multiple Data Sources (SQL + Excel)",
+                    "Star Schema Data Modeling",
+                    "Intermediate DAX (Time Intelligence)",
+                    "Custom Tooltips & Drill-throughs",
+                    "Row Level Security (Basic)",
+                    "2 Rounds of Revisions"
+                ],
+                color: "border-yellow-500",
+                popular: true
+            },
+            {
+                title: "Enterprise Analytics",
+                price: "£8,000+",
+                timeline: "4+ Weeks",
+                idealFor: "Executive Suites, Complex Logic, Large Datasets",
+                features: [
+                    "10+ Report Pages + Mobile Layout",
+                    "Complex ETL & Dataflows",
+                    "Advanced DAX & Calculation Groups",
+                    "Incremental Refresh Config",
+                    "Dynamic Row Level Security",
+                    "Custom UI/UX Design System",
+                    "Deployment Pipeline Setup",
+                    "Training Session Included"
+                ],
+                color: "border-indigo-600"
+            }
+        ];
+
+        // Data for A La Carte / Phase Specifics
+        const phases = [
+            {
+                id: 1,
+                icon: "file-search", // Lucide icon name
+                title: "Discovery & Requirements",
+                rate: "£125/hr",
+                flatRate: "£500 - £1,000 per project",
+                deliverables: [
+                    "KPI Definition Workshop",
+                    "Data Source Audit",
+                    "Business Requirements Document (BRD)",
+                    "Success Criteria Definition"
+                ]
+            },
+            {
+                id: 2,
+                icon: "layout-template", // Lucide icon name
+                title: "UX Design & Wireframing",
+                rate: "£125/hr",
+                flatRate: "£400 - £800 per report",
+                deliverables: [
+                    "Figma or low-fidelity PDF Mockups",
+                    "Navigation Flow Design",
+                    "Color Theme & Branding Setup",
+                    "Stakeholder Layout Approval"
+                ]
+            },
+            {
+                id: 3,
+                icon: "bar-chart-3", // Lucide icon name
+                title: "Development & Modeling",
+                rate: "£150/hr",
+                flatRate: "Refer to Project Packages",
+                deliverables: [
+                    "Power Query ETL Scripting",
+                    "Star Schema Modeling",
+                    "DAX Measure Creation",
+                    "Visual Implementation"
+                ]
+            },
+            {
+                id: 4,
+                icon: "test-tube", // Lucide icon name
+                title: "QA & Testing",
+                rate: "£100/hr",
+                flatRate: "15% of Dev Cost",
+                deliverables: [
+                    "Data Accuracy Validation (vs Source)",
+                    "Performance Analyzer Checks",
+                    "User Acceptance Testing (UAT) Support",
+                    "Browser & Security Role Testing"
+                ]
+            },
+            {
+                id: 5,
+                icon: "rocket", // Lucide icon name
+                title: "Rollout & Training",
+                rate: "£150/hr",
+                flatRate: "£300 per session",
+                deliverables: [
+                    "Workspace App Publication",
+                    "Gateway Refresh Configuration",
+                    "1-Hour User Training Session",
+                    "Handover Documentation"
+                ]
+            }
+        ];
+
+        // Hourly Rate Card Data
+        const roles = [
+            { role: "Principal Architect", rate: "£185/hr", desc: "Architecture strategy, complex data modeling, governance." },
+            { role: "Senior Power BI Developer", rate: "£150/hr", desc: "Full-cycle build, advanced DAX, performance tuning." },
+            { role: "Data Analyst / Junior Dev", rate: "£100/hr", desc: "Visual creation, basic measures, documentation." },
+            { role: "UI/UX Designer", rate: "£125/hr", desc: "Dashboard layout, wireframing, background design." }
+        ];
+
+        const contentArea = document.getElementById('content-area');
+        const tabButtons = {
+            packages: document.getElementById('tab-packages'),
+            phases: document.getElementById('tab-phases'),
+            hourly: document.getElementById('tab-hourly')
+        };
+
+        function renderContent() {
+            let html = '';
+
+            if (activeTab === 'packages') {
+                html = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        ${packages.map((pkg, idx) => `
+                            <div class="relative bg-white rounded-2xl shadow-xl border-t-8 ${pkg.color} p-6 flex flex-col h-full transition-transform hover:scale-[1.02]">
+                                ${pkg.popular ? `<div class="absolute top-0 right-0 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg uppercase tracking-wider">Best Value</div>` : ''}
+                                <h3 class="text-2xl font-bold mb-2">${pkg.title}</h3>
+                                <p class="text-sm text-slate-500 mb-6 italic">${pkg.idealFor}</p>
+                                <div class="mb-6">
+                                    <span class="text-3xl font-extrabold text-slate-900">${pkg.price}</span>
+                                    <div class="text-slate-500 text-sm mt-1 flex items-center gap-1">
+                                        <i data-lucide="clock" size="14"></i> Est. ${pkg.timeline}
+                                    </div>
+                                </div>
+
+                                <div class="flex-grow space-y-3 mb-8">
+                                    ${pkg.features.map(feat => `
+                                        <div class="flex items-start gap-3 text-sm text-slate-700">
+                                            <div class="mt-1 min-w-[16px]">
+                                                <i data-lucide="check" size="16" class="text-green-500"></i>
+                                            </div>
+                                            <span>${feat}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+
+                                <button class="w-full py-3 rounded-lg bg-slate-50 text-slate-900 font-semibold border border-slate-200 hover:bg-slate-100 hover:border-slate-300 transition-colors">
+                                    Enquire
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (activeTab === 'phases') {
+                html = `
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg">
+                            <h4 class="flex items-center gap-2 font-bold text-blue-800">
+                                <i data-lucide="info" size="20"></i> Lifecycle Pricing Strategy
+                            </h4>
+                            <p class="text-blue-700 text-sm mt-1">
+                                For custom engagements, we break down costs by phase. You can choose specific services (e.g., just Wireframing) or the full lifecycle.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-4">
+                            ${phases.map(phase => `
+                                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row gap-6 items-start">
+                                    <div class="bg-slate-100 p-4 rounded-full shrink-0">
+                                        <i data-lucide="${phase.icon}" size="32" class="text-slate-700"></i>
+                                    </div>
+
+                                    <div class="flex-grow">
+                                        <h3 class="text-xl font-bold text-slate-900 mb-2">${phase.id}. ${phase.title}</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Deliverables</h5>
+                                                <ul class="space-y-2">
+                                                    ${phase.deliverables.map(item => `
+                                                        <li class="flex items-center gap-2 text-sm text-slate-700">
+                                                            <div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
+                                                            ${item}
+                                                        </li>
+                                                    `).join('')}
+                                                </ul>
+                                            </div>
+                                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 self-start">
+                                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Rate Structure</h5>
+                                                <div class="flex justify-between items-center mb-2">
+                                                    <span class="text-sm text-slate-600">Hourly</span>
+                                                    <span class="font-mono font-bold">${phase.rate}</span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-sm text-slate-600">Est. Flat Rate</span>
+                                                    <span class="font-mono font-bold text-blue-600">${phase.flatRate}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else if (activeTab === 'hourly') {
+                html = `
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-slate-200">
+                            <div class="bg-slate-900 p-6 text-white">
+                                <h3 class="text-xl font-bold flex items-center gap-2">
+                                    <i data-lucide="pound-sterling" size="24" class="text-yellow-500"></i> Standard Rate Card
+                                </h3>
+                                <p class="text-slate-300 text-sm mt-1">Time & Materials engagement model</p>
+                            </div>
+
+                            <div class="divide-y divide-slate-100">
+                                ${roles.map(role => `
+                                    <div class="p-6 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-slate-50 transition-colors">
+                                        <div class="mb-4 md:mb-0">
+                                            <h4 class="font-bold text-lg text-slate-800">${role.role}</h4>
+                                            <p class="text-slate-500 text-sm">${role.desc}</p>
+                                        </div>
+                                        <div class="flex items-center gap-4">
+                                            <span class="px-4 py-2 bg-slate-100 rounded-lg font-mono font-bold text-slate-700 border border-slate-200">
+                                                ${role.rate}
+                                            </span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <div class="p-6 bg-slate-50 border-t border-slate-200">
+                                <h4 class="font-bold text-sm text-slate-700 uppercase mb-3">Terms & Conditions</h4>
+                                <ul class="text-sm text-slate-500 space-y-2">
+                                    <li>• Minimum engagement: 10 Hours or £1,500 project minimum.</li>
+                                    <li>• Billing occurs bi-weekly with detailed time logs.</li>
+                                    <li>• Urgent requests (&lt; 24hr turnaround) billed at 1.5x standard rate.</li>
+                                    <li>• Licensing costs (Power BI Pro/Premium) are not included.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            contentArea.innerHTML = html;
+            // After rendering new content, re-create Lucide icons
+            lucide.createIcons();
+            updateTabStyles();
+        }
+
+        function updateTabStyles() {
+            for (const tab in tabButtons) {
+                const button = tabButtons[tab];
+                if (tab === activeTab) {
+                    button.className = 'px-6 py-3 rounded-full font-semibold transition-all duration-200 text-sm md:text-base bg-slate-900 text-white shadow-lg transform -translate-y-0.5';
+                } else {
+                    button.className = 'px-6 py-3 rounded-full font-semibold transition-all duration-200 text-sm md:text-base bg-white text-slate-600 hover:bg-slate-100 border border-slate-200';
+                }
+            }
+        }
+
+        function setActiveTabAndRender(tabName) {
+            activeTab = tabName;
+            renderContent();
+        }
+
+        // Add event listeners to tab buttons
+        tabButtons.packages.addEventListener('click', () => setActiveTabAndRender('packages'));
+        tabButtons.phases.addEventListener('click', () => setActiveTabAndRender('phases'));
+        tabButtons.hourly.addEventListener('click', () => setActiveTabAndRender('hourly'));
+
+        // Initial render
+        renderContent();
+    </script>
+</body>
+</html>
